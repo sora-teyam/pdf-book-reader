@@ -15,19 +15,19 @@ jobs:
       
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.16.0'
-      
+          flutter-version: '3.24.0' 
+          
       - name: Install dependencies
         run: flutter pub get
-      
+        
       - name: Verify formatting
         run: dart format --output=none --set-exit-if-changed .
-      
+        
       - name: Analyze project source
         run: flutter analyze
-      
+        
       - name: Run tests
         run: flutter test
-      
+        
       - name: Build APK
         run: flutter build apk --debug
