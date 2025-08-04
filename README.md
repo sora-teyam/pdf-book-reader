@@ -1,16 +1,153 @@
-# pdf_reader_app
+# PDFBookReader 📚
 
-A new Flutter project.
+A modern, feature-rich PDF reader app built with Flutter for Android devices. Read your PDF books with style and comfort!
 
-## Getting Started
+## ✨ Features
 
-This project is a starting point for a Flutter application.
+### 📖 Library Management
+- Add PDF files from device storage
+- Beautiful book cards with progress indicators
+- Custom book covers (set your own images)
+- Rename books with custom titles
+- Smart sorting (by name, date, progress)
+- Search through your library
+- Reading statistics dashboard
 
-A few resources to get you started if this is your first Flutter project:
+### 🎯 Reading Experience
+- Smooth page navigation with swipe gestures
+- Tap navigation buttons for precise control
+- Adjustable font size (zoom functionality)
+- Brightness control for comfortable reading
+- Full-screen reading mode
+- Keep screen on option
+- Auto-save reading progress
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+### 🔖 Bookmarks & Navigation
+- Add/remove bookmarks on any page
+- Quick bookmark access panel
+- Jump to specific page
+- Visual progress tracking
+- Reading percentage display
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### 🌍 Multilingual Support
+- English
+- Russian (Русский)
+- Ukrainian (Українська)
+- Slovak (Slovenčina)
+
+### 🎨 Themes & Customization
+- Light/Dark/System themes
+- Adjustable interface settings
+- Customizable reading preferences
+- Modern Material Design 3 UI
+
+## 📱 Screenshots
+
+| Library View | Reading Mode | Bookmarks | Settings |
+|--------------|--------------|-----------|----------|
+| Coming soon | Coming soon | Coming soon | Coming soon |
+
+## 🚀 Installation
+
+### Download APK
+1. Go to [Releases](https://github.com/krutoychel24/pdf-book-reader/releases)
+2. Download the latest `PDFBookReader.apk`
+3. Install on your Android device
+
+### Build from Source
+```bash
+# Clone the repository
+git clone https://github.com/krutoychel24/pdf-book-reader.git
+cd pdf-book-reader
+
+# Install dependencies
+flutter pub get
+
+# Build APK
+flutter build apk --release
+
+# Or just run
+flutter run
+```
+
+## 📋 Requirements
+
+- Android 5.0 (API level 21) or higher
+- 50MB free storage space
+- PDF files on device storage
+
+## 🛠️ Tech Stack
+
+- **Framework**: Flutter 3.0+
+- **Language**: Dart
+- **Architecture**: Provider state management
+- **PDF Rendering**: flutter_pdfview
+- **File Picker**: file_picker
+- **Local Storage**: shared_preferences
+- **Internationalization**: flutter_localizations
+
+## 📁 Project Structure
+
+```
+lib/
+├── main.dart
+├── generated/
+│   └── l10n.dart
+├── l10n/
+│   ├── app_en.arb
+│   ├── app_ru.arb
+│   ├── app_sk.arb
+│   └── app_uk.arb
+├── models/
+│   ├── book.dart
+│   └── bookmark.dart
+├── providers/
+│   ├── book_provider.dart
+│   └── settings_provider.dart
+├── screens/
+│   ├── home_screen.dart
+│   ├── pdf_reader_screen.dart
+│   └── settings_screen.dart
+├── widgets/
+│   ├── book_card.dart
+│   └── bookmarks_bottom_sheet.dart
+└── utils/
+    └── pdf_thumbnail_generator.dart
+```
+
+## 📖 Usage
+
+1. **Add Books**: Tap the '+' button and select PDF files from your device
+2. **Read Books**: Tap on any book card to start reading
+3. **Navigate**: Swipe left/right or use navigation buttons
+4. **Bookmarks**: Tap bookmark icon to save your place
+5. **Customize**: Access settings to adjust themes, language, and reading preferences
+
+## 🔮 Features in Development
+
+- PDF text search
+- Reading notes and highlights
+- Cloud synchronization
+- Book categories and tags
+- Export reading data
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 📞 Contact
+
+- **Developer**: HruHruStudio (krutoychel24)
+- **Website**: [hruhrustudio.site](https://hruhrustudio.site)
+- **GitHub**: [@krutoychel24](https://github.com/krutoychel24)
+
+## 🙏 Acknowledgments
+
+- Flutter team for the amazing framework
+- PDF rendering library maintainers
+- Material Design team for UI guidelines
+- Open source community for inspiration
+
+---
+
+**Made with ❤️ using Flutter**
