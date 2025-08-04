@@ -1,0 +1,78 @@
+{
+  "appTitle": "PDF Reader",
+  "noBooksTitle": "No Books",
+  "noBooksSubtitle": "Add your first PDF book",
+  "addBook": "Add Book",
+  "removeBook": "Remove Book",
+  "openBook": "Open Book",
+  "cancel": "Cancel",
+  "delete": "Delete",
+  "deleteBookTitle": "Delete Book?",
+  "deleteBookMessage": "Are you sure you want to delete \"{title}\"? This action cannot be undone.",
+  "@deleteBookMessage": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "bookAddedSuccess": "Book added successfully!",
+  "bookAddedError": "Error adding book",
+  "bookDeleted": "Book deleted",
+  "loadingPdf": "Loading PDF...",
+  "fileNotFound": "File not found",
+  "fileNotFoundMessage": "PDF file was deleted or moved",
+  "error": "Error",
+  "pdfLoadError": "Could not load PDF file. Check that the file is not corrupted.",
+  "ok": "OK",
+  "notStarted": "Not started",
+  "page": "Page",
+  "of": "of",
+  "progress": "Progress",
+  "whatToDoWithBook": "What do you want to do with this book?",
+  "settings": "Settings",
+  "language": "Language",
+  "nightMode": "Night Mode",
+  "about": "About",
+  "version": "Version",
+  "readingProgress": "{progress}% • Page {current}/{total}",
+  "@readingProgress": {
+    "placeholders": {
+      "progress": {
+        "type": "String"
+      },
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "bookmarks": "Bookmarks",
+  "addBookmark": "Add Bookmark",
+  "removeBookmark": "Remove Bookmark",
+  "goToPage": "Go to Page",
+  "searchInBook": "Search in Book",
+  "noBookmarks": "No bookmarks",
+  "bookmarkAdded": "Bookmark added",
+  "bookmarkRemoved": "Bookmark removed",
+  "fontSize": "Font Size",
+  "brightness": "Brightness",
+  "pageJump": "Page Jump",
+  "enterPageNumber": "Enter page number",
+  "invalidPageNumber": "Invalid page number",
+  "jumpToPage": "Jump",
+  "share": "Share",
+  "copy": "Copy",
+  "recentBooks": "Recent Books",
+  "allBooks": "All Books",
+  "sortBy": "Sort By",
+  "sortByName": "Name",
+  "sortByDate": "Date Added",
+  "sortByProgress": "Progress",
+  "theme": "Theme",
+  "systemTheme": "System",
+  "lightTheme": "Light",
+  "darkTheme": "Dark"
+}

@@ -1,10 +1,11 @@
 class Book {
   final String id;
-  final String title;
+  String title; // Убираем final чтобы можно было изменять
   final String filePath;
   final DateTime addedDate;
   int currentPage;
   int totalPages;
+  String? customCoverPath; // Добавляем путь к пользовательской обложке
 
   Book({
     required this.id,
@@ -13,6 +14,7 @@ class Book {
     required this.addedDate,
     this.currentPage = 1,
     this.totalPages = 0,
+    this.customCoverPath,
   });
 
   Map<String, dynamic> toJson() {
@@ -23,6 +25,7 @@ class Book {
       'addedDate': addedDate.toIso8601String(),
       'currentPage': currentPage,
       'totalPages': totalPages,
+      'customCoverPath': customCoverPath,
     };
   }
 
@@ -34,6 +37,7 @@ class Book {
       addedDate: DateTime.parse(json['addedDate']),
       currentPage: json['currentPage'] ?? 1,
       totalPages: json['totalPages'] ?? 0,
+      customCoverPath: json['customCoverPath'],
     );
   }
 
