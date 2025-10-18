@@ -16,7 +16,7 @@ void main() async {
 class MyApp extends StatelessWidget {
   final SharedPreferences prefs;
 
-  const MyApp({Key? key, required this.prefs}) : super(key: key);
+  const MyApp({super.key, required this.prefs});
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
         builder: (context, settingsProvider, child) {
           return MaterialApp(
             title: 'PDF Reader',
-            
+
             // Локализация
             localizationsDelegates: const [
               S.delegate,
@@ -44,12 +44,12 @@ class MyApp extends StatelessWidget {
               Locale('uk'),
             ],
             locale: settingsProvider.locale,
-            
+
             // Темы
             theme: _buildLightTheme(),
             darkTheme: _buildDarkTheme(),
             themeMode: settingsProvider.themeMode,
-            
+
             home: const HomeScreen(),
             debugShowCheckedModeBanner: false,
           );
