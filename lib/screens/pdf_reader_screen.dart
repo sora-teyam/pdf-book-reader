@@ -5,7 +5,6 @@ import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 import '../models/book.dart';
-import '../models/bookmark.dart';
 import '../providers/book_provider.dart';
 import '../providers/settings_provider.dart';
 import '../generated/l10n.dart';
@@ -14,13 +13,13 @@ import '../widgets/bookmarks_bottom_sheet.dart';
 class PDFReaderScreen extends StatefulWidget {
   final Book book;
 
-  const PDFReaderScreen({Key? key, required this.book}) : super(key: key);
+  const PDFReaderScreen({super.key, required this.book});
 
   @override
-  _PDFReaderScreenState createState() => _PDFReaderScreenState();
+  PDFReaderScreenState createState() => PDFReaderScreenState();
 }
 
-class _PDFReaderScreenState extends State<PDFReaderScreen> {
+class PDFReaderScreenState extends State<PDFReaderScreen> {
   PDFViewController? controller;
   int currentPage = 1;
   int totalPages = 0;
@@ -31,7 +30,8 @@ class _PDFReaderScreenState extends State<PDFReaderScreen> {
   @override
   void initState() {
     super.initState();
-    currentPage = widget.book.currentPage.clamp(1, widget.book.totalPages > 0 ? widget.book.totalPages : 1);
+    currentPage = widget.book.currentPage
+        .clamp(1, widget.book.totalPages > 0 ? widget.book.totalPages : 1);
     totalPages = widget.book.totalPages;
     _hideSystemUI();
   }
@@ -53,20 +53,23 @@ class _PDFReaderScreenState extends State<PDFReaderScreen> {
   @override
   Widget build(BuildContext context) {
     final s = S.of(context);
-    
+
     return Consumer2<BookProvider, SettingsProvider>(
       builder: (context, bookProvider, settingsProvider, child) {
         return Scaffold(
           backgroundColor: Colors.black,
           extendBodyBehindAppBar: true,
-          appBar: showControls && !isFullscreen ? _buildAppBar(s, bookProvider) : null,
+          appBar: showControls && !isFullscreen
+              ? _buildAppBar(s, bookProvider)
+              : null,
           body: Stack(
             children: [
               _buildPDFViewer(settingsProvider),
               // GestureDetector исключает область кнопок
               _buildGestureDetector(),
               // Кнопки поверх всего остального
-              if (showControls && !isFullscreen) _buildBottomControls(s, bookProvider),
+              if (showControls && !isFullscreen)
+                _buildBottomControls(s, bookProvider),
             ],
           ),
         );
@@ -76,7 +79,7 @@ class _PDFReaderScreenState extends State<PDFReaderScreen> {
 
   PreferredSizeWidget _buildAppBar(S s, BookProvider bookProvider) {
     return AppBar(
-      backgroundColor: Colors.black.withOpacity(0.7),
+      backgroundColor: Colors.black.withValues(alpha: 0.7),
       foregroundColor: Colors.white,
       title: Text(
         widget.book.title,
@@ -132,7 +135,9 @@ class _PDFReaderScreenState extends State<PDFReaderScreen> {
                 children: [
                   Icon(isFullscreen ? Icons.fullscreen_exit : Icons.fullscreen),
                   const SizedBox(width: 8),
-                  Text(isFullscreen ? 'Выйти из полноэкранного' : 'Полноэкранный режим'),
+                  Text(isFullscreen
+                      ? 'Выйти из полноэкранного'
+                      : 'Полноэкранный режим'),
                 ],
               ),
             ),
@@ -159,7 +164,8 @@ class _PDFReaderScreenState extends State<PDFReaderScreen> {
             pageFling: true,
             pageSnap: true,
             defaultPage: currentPage - 1,
-            fitPolicy: FitPolicy.WIDTH, // Изменили на WIDTH для лучшего масштабирования
+            fitPolicy: FitPolicy
+                .WIDTH, // Изменили на WIDTH для лучшего масштабирования
             preventLinkNavigation: false,
             backgroundColor: Colors.black,
             onRender: (pages) {
@@ -167,15 +173,16 @@ class _PDFReaderScreenState extends State<PDFReaderScreen> {
                 totalPages = pages!;
                 isReady = true;
               });
-              print('PDF loaded: $totalPages pages, current: $currentPage');
+              debugPrint(
+                  'PDF loaded: $totalPages pages, current: $currentPage');
               _updateProgress();
             },
             onError: (error) {
-              print('PDF Error: $error');
+              debugPrint('PDF Error: $error');
               _showErrorDialog();
             },
             onPageError: (page, error) {
-              print('Page $page Error: $error');
+              debugPrint('Page $page Error: $error');
             },
             onViewCreated: (PDFViewController pdfViewController) {
               controller = pdfViewController;
@@ -183,7 +190,7 @@ class _PDFReaderScreenState extends State<PDFReaderScreen> {
             onPageChanged: (int? page, int? total) {
               if (total != null && total > 0) {
                 final newPage = (page ?? 0) + 1;
-                print('Page changed: $newPage / $total');
+                debugPrint('Page changed: $newPage / $total');
                 setState(() {
                   currentPage = newPage.clamp(1, total);
                   totalPages = total;
@@ -212,7 +219,8 @@ class _PDFReaderScreenState extends State<PDFReaderScreen> {
           // Яркость overlay
           if (settingsProvider.brightness < 1.0)
             Container(
-              color: Colors.black.withOpacity(1.0 - settingsProvider.brightness),
+              color: Colors.black
+                  .withValues(alpha: 1.0 - settingsProvider.brightness),
             ),
         ],
       ),
@@ -264,7 +272,7 @@ class _PDFReaderScreenState extends State<PDFReaderScreen> {
             begin: Alignment.bottomCenter,
             end: Alignment.topCenter,
             colors: [
-              Colors.black.withOpacity(0.8),
+              Colors.black.withValues(alpha: 0.8),
               Colors.transparent,
             ],
           ),
@@ -282,12 +290,16 @@ class _PDFReaderScreenState extends State<PDFReaderScreen> {
                   ),
                   Expanded(
                     child: Slider(
-                      value: totalPages > 0 ? currentPage.clamp(1, totalPages).toDouble() : 1.0,
+                      value: totalPages > 0
+                          ? currentPage.clamp(1, totalPages).toDouble()
+                          : 1.0,
                       min: 1.0,
                       max: totalPages > 0 ? totalPages.toDouble() : 1.0,
-                      onChanged: totalPages > 0 ? (value) {
-                        _goToPage(value.round());
-                      } : null,
+                      onChanged: totalPages > 0
+                          ? (value) {
+                              _goToPage(value.round());
+                            }
+                          : null,
                       activeColor: Colors.blue,
                       inactiveColor: Colors.white30,
                     ),
@@ -298,7 +310,7 @@ class _PDFReaderScreenState extends State<PDFReaderScreen> {
                   ),
                 ],
               ),
-              
+
               // Кнопки управления
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -309,12 +321,14 @@ class _PDFReaderScreenState extends State<PDFReaderScreen> {
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: IconButton(
-                      onPressed: currentPage > 1 && totalPages > 0 ? () {
-                        print('Previous button pressed!');
-                        _previousPage();
-                      } : null,
+                      onPressed: currentPage > 1 && totalPages > 0
+                          ? () {
+                              debugPrint('Previous button pressed!');
+                              _previousPage();
+                            }
+                          : null,
                       icon: Icon(
-                        Icons.skip_previous, 
+                        Icons.skip_previous,
                         color: currentPage > 1 ? Colors.white : Colors.white30,
                       ),
                       iconSize: 32,
@@ -326,10 +340,12 @@ class _PDFReaderScreenState extends State<PDFReaderScreen> {
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: IconButton(
-                      onPressed: totalPages > 0 ? () {
-                        print('Bookmarks button pressed!');
-                        _showBookmarksBottomSheet(bookProvider);
-                      } : null,
+                      onPressed: totalPages > 0
+                          ? () {
+                              debugPrint('Bookmarks button pressed!');
+                              _showBookmarksBottomSheet(bookProvider);
+                            }
+                          : null,
                       icon: const Icon(Icons.bookmarks, color: Colors.white),
                       iconSize: 28,
                     ),
@@ -340,10 +356,12 @@ class _PDFReaderScreenState extends State<PDFReaderScreen> {
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: IconButton(
-                      onPressed: totalPages > 0 ? () {
-                        print('Navigation button pressed!');
-                        _showGoToPageDialog();
-                      } : null,
+                      onPressed: totalPages > 0
+                          ? () {
+                              debugPrint('Navigation button pressed!');
+                              _showGoToPageDialog();
+                            }
+                          : null,
                       icon: const Icon(Icons.navigation, color: Colors.white),
                       iconSize: 28,
                     ),
@@ -354,12 +372,15 @@ class _PDFReaderScreenState extends State<PDFReaderScreen> {
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: IconButton(
-                      onPressed: totalPages > 0 ? () {
-                        print('Bookmark toggle pressed!');
-                        _toggleBookmark(bookProvider, s);
-                      } : null,
+                      onPressed: totalPages > 0
+                          ? () {
+                              debugPrint('Bookmark toggle pressed!');
+                              _toggleBookmark(bookProvider, s);
+                            }
+                          : null,
                       icon: Icon(
-                        bookProvider.hasBookmarkForPage(widget.book.id, currentPage)
+                        bookProvider.hasBookmarkForPage(
+                                widget.book.id, currentPage)
                             ? Icons.bookmark
                             : Icons.bookmark_border,
                         color: Colors.white,
@@ -373,20 +394,24 @@ class _PDFReaderScreenState extends State<PDFReaderScreen> {
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: IconButton(
-                      onPressed: currentPage < totalPages && totalPages > 0 ? () {
-                        print('Next button pressed!');
-                        _nextPage();
-                      } : null,
+                      onPressed: currentPage < totalPages && totalPages > 0
+                          ? () {
+                              debugPrint('Next button pressed!');
+                              _nextPage();
+                            }
+                          : null,
                       icon: Icon(
-                        Icons.skip_next, 
-                        color: currentPage < totalPages ? Colors.white : Colors.white30,
+                        Icons.skip_next,
+                        color: currentPage < totalPages
+                            ? Colors.white
+                            : Colors.white30,
                       ),
                       iconSize: 32,
                     ),
                   ),
                 ],
               ),
-              
+
               // Информация о странице
               Text(
                 '${(totalPages > 0 ? (currentPage / totalPages * 100) : 0).toStringAsFixed(1)}% • ${s.page} $currentPage ${s.ofPages} $totalPages',
@@ -426,27 +451,28 @@ class _PDFReaderScreenState extends State<PDFReaderScreen> {
   }
 
   void _previousPage() async {
-    print('Previous page clicked. Current: $currentPage, Total: $totalPages');
+    debugPrint(
+        'Previous page clicked. Current: $currentPage, Total: $totalPages');
     if (controller != null && currentPage > 1 && totalPages > 0) {
       try {
         // Используем правильный индекс для PDF (начинается с 0)
         await controller!.setPage(currentPage - 2);
-        print('Successfully navigated to page ${currentPage - 1}');
+        debugPrint('Successfully navigated to page ${currentPage - 1}');
       } catch (e) {
-        print('Error navigating to previous page: $e');
+        debugPrint('Error navigating to previous page: $e');
       }
     }
   }
 
   void _nextPage() async {
-    print('Next page clicked. Current: $currentPage, Total: $totalPages');
+    debugPrint('Next page clicked. Current: $currentPage, Total: $totalPages');
     if (controller != null && currentPage < totalPages && totalPages > 0) {
       try {
         // Используем правильный индекс для PDF (начинается с 0)
         await controller!.setPage(currentPage);
-        print('Successfully navigated to page ${currentPage + 1}');
+        debugPrint('Successfully navigated to page ${currentPage + 1}');
       } catch (e) {
-        print('Error navigating to next page: $e');
+        debugPrint('Error navigating to next page: $e');
       }
     }
   }
@@ -467,7 +493,8 @@ class _PDFReaderScreenState extends State<PDFReaderScreen> {
 
   void _toggleBookmark(BookProvider bookProvider, S s) async {
     if (bookProvider.hasBookmarkForPage(widget.book.id, currentPage)) {
-      final bookmark = bookProvider.getBookmarkForPage(widget.book.id, currentPage);
+      final bookmark =
+          bookProvider.getBookmarkForPage(widget.book.id, currentPage);
       if (bookmark != null) {
         await bookProvider.removeBookmark(bookmark.id);
         ScaffoldMessenger.of(context).showSnackBar(
@@ -526,7 +553,7 @@ class _PDFReaderScreenState extends State<PDFReaderScreen> {
   void _showGoToPageDialog() {
     final s = S.of(context);
     final controller = TextEditingController();
-    
+
     showDialog(
       context: context,
       builder: (context) => AlertDialog(

@@ -8,13 +8,13 @@ import '../generated/l10n.dart';
 import 'settings_screen.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  const HomeScreen({super.key});
 
   @override
-  _HomeScreenState createState() => _HomeScreenState();
+  HomeScreenState createState() => HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
+class HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   late TabController _tabController;
   String _searchQuery = '';
   bool _isSearching = false;
@@ -34,7 +34,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     final s = S.of(context);
-    
+
     return Scaffold(
       appBar: _isSearching ? _buildSearchAppBar(s) : _buildNormalAppBar(s),
       body: Consumer2<BookProvider, SettingsProvider>(
@@ -51,7 +51,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
             children: [
               // Статистика
               _buildStatsCard(bookProvider, s),
-              
+
               // Табы
               TabBar(
                 controller: _tabController,
@@ -60,7 +60,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                   Tab(text: s.allBooks),
                 ],
               ),
-              
+
               // Контент табов
               Expanded(
                 child: TabBarView(
@@ -143,15 +143,15 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           Text(
             s.noBooksTitle,
             style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-              color: Theme.of(context).colorScheme.onSurfaceVariant,
-            ),
+                  color: Theme.of(context).colorScheme.onSurfaceVariant,
+                ),
           ),
           const SizedBox(height: 10),
           Text(
             s.noBooksSubtitle,
             style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-              color: Theme.of(context).colorScheme.outline,
-            ),
+                  color: Theme.of(context).colorScheme.outline,
+                ),
           ),
           const SizedBox(height: 40),
           FilledButton.icon(
@@ -168,7 +168,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     if (bookProvider.totalBooks == 0) {
       return const SizedBox.shrink(); // Скрываем статистику если нет книг
     }
-    
+
     return Container(
       margin: const EdgeInsets.all(16),
       child: Card(
@@ -208,7 +208,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     );
   }
 
-  Widget _buildStatItem(String value, String label, IconData icon, Color color) {
+  Widget _buildStatItem(
+      String value, String label, IconData icon, Color color) {
     return Column(
       children: [
         Icon(icon, color: color, size: 24),
@@ -216,9 +217,9 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         Text(
           value,
           style: Theme.of(context).textTheme.titleLarge?.copyWith(
-            fontWeight: FontWeight.bold,
-            color: color,
-          ),
+                fontWeight: FontWeight.bold,
+                color: color,
+              ),
         ),
         Text(
           label,
@@ -252,7 +253,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     );
   }
 
-  Widget _buildAllBooksGrid(BookProvider bookProvider, SettingsProvider settingsProvider, S s) {
+  Widget _buildAllBooksGrid(
+      BookProvider bookProvider, SettingsProvider settingsProvider, S s) {
     final sortedBooks = bookProvider.getSortedBooks(
       settingsProvider.sortType,
       settingsProvider.sortAscending,
@@ -267,7 +269,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
       children: [
         // Панель сортировки
         _buildSortPanel(settingsProvider, s),
-        
+
         // Сетка книг
         Expanded(
           child: GridView.builder(
@@ -303,15 +305,21 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
               }
             },
             items: [
-              DropdownMenuItem(value: BookSortType.name, child: Text(s.sortByName)),
-              DropdownMenuItem(value: BookSortType.dateAdded, child: Text(s.sortByDate)),
-              DropdownMenuItem(value: BookSortType.progress, child: Text(s.sortByProgress)),
+              DropdownMenuItem(
+                  value: BookSortType.name, child: Text(s.sortByName)),
+              DropdownMenuItem(
+                  value: BookSortType.dateAdded, child: Text(s.sortByDate)),
+              DropdownMenuItem(
+                  value: BookSortType.progress, child: Text(s.sortByProgress)),
             ],
           ),
           const Spacer(),
           IconButton(
-            icon: Icon(settingsProvider.sortAscending ? Icons.arrow_upward : Icons.arrow_downward),
-            onPressed: () => settingsProvider.setSortAscending(!settingsProvider.sortAscending),
+            icon: Icon(settingsProvider.sortAscending
+                ? Icons.arrow_upward
+                : Icons.arrow_downward),
+            onPressed: () => settingsProvider
+                .setSortAscending(!settingsProvider.sortAscending),
           ),
         ],
       ),
@@ -337,8 +345,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           Text(
             'Попробуйте изменить поисковый запрос',
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-              color: Theme.of(context).colorScheme.outline,
-            ),
+                  color: Theme.of(context).colorScheme.outline,
+                ),
           ),
         ],
       ),
@@ -347,7 +355,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
   List<dynamic> _filterBooks(List<dynamic> books) {
     if (_searchQuery.isEmpty) return books;
-    
+
     return books.where((book) {
       return book.title.toLowerCase().contains(_searchQuery.toLowerCase());
     }).toList();
@@ -362,7 +370,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
       if (result != null && result.files.single.path != null) {
         final bookProvider = Provider.of<BookProvider>(context, listen: false);
-        
+
         // Показываем индикатор загрузки
         showDialog(
           context: context,
