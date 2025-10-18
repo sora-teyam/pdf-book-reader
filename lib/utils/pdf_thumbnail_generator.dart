@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 
 class PDFThumbnailGenerator {
-  static Future<String?> generateThumbnail(String pdfPath, String bookId) async {
+  static Future<String?> generateThumbnail(
+      String pdfPath, String bookId) async {
     // Пока отключаем генерацию обложек из-за проблем с библиотекой
     // В будущем можно будет добавить другую библиотеку для генерации миниатюр
     return null;
@@ -18,22 +19,23 @@ class PDFThumbnailGenerator {
         await file.delete();
       }
     } catch (e) {
-      print('Error deleting thumbnail: $e');
+      debugPrint('Error deleting thumbnail: $e');
     }
   }
 
   // Метод для будущего добавления генерации обложек
-  static Future<String?> generateThumbnailFromPDF(String pdfPath, String bookId) async {
+  static Future<String?> generateThumbnailFromPDF(
+      String pdfPath, String bookId) async {
     try {
       // TODO: Добавить генерацию реальных обложек когда найдем подходящую библиотеку
       // Возможные варианты:
       // 1. pdf_thumbnail
       // 2. syncfusion_flutter_pdf
       // 3. native platform code
-      
+
       return null;
     } catch (e) {
-      print('Error generating thumbnail: $e');
+      debugPrint('Error generating thumbnail: $e');
       return null;
     }
   }
