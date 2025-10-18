@@ -10,7 +10,7 @@ Topics: #book-reader #dart #flutter #flutter-app #flutter-pdf #flutter-pdf-viewe
 
 Optional hero visuals help users grasp the app's purpose at a glance. The design centers on readability, quick navigation, and a calm, distraction-free interface. The app provides a library view, a reader view, and a few helper screens to manage your documents. You can tap a book to open it, jump to a page, zoom in or out, and resume where you left off. The app stores metadata locally so you can browse your collection even when offline. The goal is to keep a lightweight footprint while delivering a reliable reading experience across platforms.
 
-![Flutter logo](https://docs.flutter.dev/assets/images/flutter-logo-sharing.png)
+![Flutter logo](https://upload.wikimedia.org/wikipedia/commons/1/17/Flutter_logo.png)
 
 Table of contents
 - About this project
